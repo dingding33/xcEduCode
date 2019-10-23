@@ -1,8 +1,5 @@
 package com.xuecheng.framework.utils;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.atomic.AtomicLong;
@@ -15,8 +12,6 @@ import java.util.concurrent.atomic.AtomicLong;
  */
 public class Snowflake {
 
-    private static Logger log = LoggerFactory.getLogger(Snowflake.class);
-//    private static Logger
 	/*
 	 * bits allocations for timeStamp, datacenterId, workerId and sequence
 	 */

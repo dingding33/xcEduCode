@@ -11,7 +11,11 @@ import java.io.Serializable;
 @Data
 @ToString
 public class CourseSearchParam implements Serializable {
-    //关键字
+    /**
+     *
+     */
+    private static final long serialVersionUID = 2630717791567670720L;
+    // 关键字
     String keyword;
     //一级分类
     String mt;

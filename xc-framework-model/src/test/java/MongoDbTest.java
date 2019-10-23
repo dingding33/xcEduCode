@@ -9,6 +9,7 @@ public class MongoDbTest {
         MongoDatabase local = mongoClient.getDatabase("local");
 
         System.out.println(local.getName());
-
+        
+        mongoClient.close();
     }
 }

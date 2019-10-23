@@ -19,6 +19,11 @@ import java.util.Date;
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class XcTask implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -6245449268184821012L;
+
     @Id
     @GeneratedValue(generator = "jpa-uuid")
     @Column(length = 32)

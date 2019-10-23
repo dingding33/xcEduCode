@@ -1,11 +1,12 @@
 package com.xuecheng.framework.domain.filesystem;
 
-import lombok.Data;
-import lombok.ToString;
+import java.util.Map;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Map;
+import lombok.Data;
+import lombok.ToString;
 
 /**
  * Created by mrt on 2018/2/5.
@@ -36,6 +37,7 @@ public class FileSystem {
     //业务标签
     private String filetag;
     //文件元信息
+    @SuppressWarnings("rawtypes")
     private Map metadata;
 
 }

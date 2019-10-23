@@ -1,7 +1,6 @@
 .idea/
 target/
 *.iml
-<<<<<<< HEAD
 pom.xml.tag
 pom.xml.releaseBackup
 pom.xml.versionsBackup
@@ -13,5 +12,10 @@ buildNumber.properties
 
 # Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
 !/.mvn/wrapper/maven-wrapper.jar
-=======
->>>>>>> cfe391f4e7e86ec66f3ccc1361852c9c7a8b7725
+*/.classpath
+*/.classpath
+*/.factorypath
+*/.project
+*/.settings/
+*/.settings/
+.vscode/

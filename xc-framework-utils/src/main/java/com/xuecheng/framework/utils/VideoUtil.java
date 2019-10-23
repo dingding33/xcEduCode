@@ -75,14 +75,12 @@ public class VideoUtil {
      public String waitFor(Process p) {
         InputStream in = null;
         InputStream error = null;
-        String result = "error";
-        int exitValue = -1;
         StringBuffer outputString = new StringBuffer();
         try {
             in = p.getInputStream();
             error = p.getErrorStream();
             boolean finished = false;
-            int maxRetry = 600;//每次休眠1秒，最长执行时间10分种
+            int maxRetry = 600;// 每次休眠1秒，最长执行时间10分种
             int retry = 0;
             while (!finished) {
                 if (retry > maxRetry) {
@@ -99,8 +97,6 @@ public class VideoUtil {
                         outputString.append(c);
                         System.out.print(c);
                     }
-                    //进程未结束时调用exitValue将抛出异常
-                    exitValue = p.exitValue();
                     finished = true;
 
                 } catch (IllegalThreadStateException e) {

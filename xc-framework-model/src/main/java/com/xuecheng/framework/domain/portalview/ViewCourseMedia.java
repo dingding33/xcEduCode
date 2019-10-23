@@ -16,6 +16,11 @@ import java.io.Serializable;
 @Document(collection = "view_course_media")
 public class ViewCourseMedia implements Serializable{
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+
     @Id
     @Column(name="teachplan_id")
     private String teachplanId;

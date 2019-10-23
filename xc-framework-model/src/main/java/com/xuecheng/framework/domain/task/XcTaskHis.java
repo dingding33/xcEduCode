@@ -18,6 +18,11 @@ import java.util.Date;
 @GenericGenerator(name = "jpa-assigned", strategy = "assigned")
 public class XcTaskHis implements Serializable {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8051872726392934423L;
+
     @Id
     @GeneratedValue(generator = "jpa-assigned")
     @Column(length = 32)

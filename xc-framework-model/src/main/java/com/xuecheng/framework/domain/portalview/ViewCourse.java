@@ -20,6 +20,10 @@ import java.io.Serializable;
 @Document(collection = "view_course")
 public class ViewCourse implements Serializable{
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 6890609273156616561L;
     @Id
     private String id;
     private CourseBase courseBase;

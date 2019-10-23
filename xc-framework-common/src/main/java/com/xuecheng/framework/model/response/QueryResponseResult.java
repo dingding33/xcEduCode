@@ -7,8 +7,10 @@ import lombok.ToString;
 @ToString
 public class QueryResponseResult extends ResponseResult {
 
+    @SuppressWarnings("rawtypes")
     QueryResult queryResult;
 
+    @SuppressWarnings("rawtypes")
     public QueryResponseResult(ResultCode resultCode,QueryResult queryResult){
         super(resultCode);
        this.queryResult = queryResult;

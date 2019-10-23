@@ -13,7 +13,11 @@ import java.util.List;
 @ToString
 public class CategoryParameter extends Category {
 
-    //二级分类ids
+    /**
+     *
+     */
+    private static final long serialVersionUID = 3288501070925284386L;
+    // 二级分类ids
     List<String> bIds;
     //三级分类ids
     List<String> cIds;

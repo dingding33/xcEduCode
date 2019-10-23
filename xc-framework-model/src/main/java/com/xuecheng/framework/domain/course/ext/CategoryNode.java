@@ -13,6 +13,10 @@ import java.util.List;
 @ToString
 public class CategoryNode extends Category {
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = 8943052777808157234L;
     List<CategoryNode> children;
 
 }

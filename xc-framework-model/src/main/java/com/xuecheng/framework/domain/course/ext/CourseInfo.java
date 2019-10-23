@@ -11,7 +11,11 @@ import lombok.ToString;
 @ToString
 public class CourseInfo extends CourseBase {
 
-    //课程图片
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    // 课程图片
     private String pic;
 
 }

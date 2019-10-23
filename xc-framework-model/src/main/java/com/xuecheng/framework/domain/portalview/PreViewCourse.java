@@ -20,6 +20,10 @@ import java.io.Serializable;
 @Document(collection = "pre_view_course")
 public class PreViewCourse implements Serializable{
 
+    /**
+     *
+     */
+    private static final long serialVersionUID = -5285905795856823813L;
     @Id
     private String id;
     private CourseBase courseBase;
