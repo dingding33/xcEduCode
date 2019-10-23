@@ -10,5 +10,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
  */
 public interface CmsPageRepository extends MongoRepository<CmsPage,String>
 {
+    // 校验页面是否存在
+    CmsPage findByPageNameAndSiteIdAndPageWebPath(String pageName, String siteId, String pageWebPath);
 
 }
