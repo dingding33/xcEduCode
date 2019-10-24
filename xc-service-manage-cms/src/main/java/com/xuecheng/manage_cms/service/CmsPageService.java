@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * Description:
  * @author yindb
@@ -66,12 +68,48 @@ public class CmsPageService
         CmsPage page = cmsPageRepository.findByPageNameAndSiteIdAndPageWebPath(cmsPage.getPageName(), cmsPage.getSiteId(), cmsPage.getPageWebPath());
 
         if (page == null) {
-            cmsPage.setSiteId(null);
+            cmsPage.setPageId(null);
             cmsPageRepository.save(cmsPage);
             return new CmsPageResult(CommonCode.SUCCESS, cmsPage);
         }
         return new CmsPageResult(CommonCode.FAIL, null);
+    }
 
 
+    /**
+     * 根据ID查询页面
+     * @param id
+     * @return
+     */
+    public CmsPage findById(String id) {
+        Optional<CmsPage> byId = cmsPageRepository.findById(id);
+        if (byId.isPresent()) {
+            return byId.get();
+        }
+        return null;
+    }
+
+    /**
+     * 修改页面
+     * @param id
+     * @param cmsPage
+     * @return
+     */
+    public CmsPageResult update(String id, CmsPage cmsPage) {
+        CmsPage byId = this.findById(id);
+        if (byId != null) {
+            byId.setTemplateId(cmsPage.getTemplateId());
+            byId.setSiteId(cmsPage.getSiteId());
+            byId.setPageAliase(cmsPage.getPageAliase());
+            byId.setPageName(cmsPage.getPageName());
+            byId.setPageWebPath(cmsPage.getPageWebPath());
+            byId.setPagePhysicalPath(cmsPage.getPagePhysicalPath());
+
+            CmsPage save = cmsPageRepository.save(byId);
+            if (save != null) {
+                return new CmsPageResult(CommonCode.SUCCESS, save);
+            }
+        }
+        return new CmsPageResult(CommonCode.SUCCESS,null);
     }
 }
