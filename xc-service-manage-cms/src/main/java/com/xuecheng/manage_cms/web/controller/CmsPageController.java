@@ -85,4 +85,15 @@ public class CmsPageController implements CmsPageControllerApi
     public CmsPageResult edit(@PathVariable("id") String id, @RequestBody CmsPage cmsPage) {
         return cmsPageService.update(id, cmsPage);
     }
+
+    /**
+     * 删除页面
+     */
+    @Override
+    @DeleteMapping("/del/{id}")
+    public CmsPageResult delete(@PathVariable("id")String id) {
+        return cmsPageService.delete(id);
+    }
+
+
 }

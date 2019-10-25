@@ -112,4 +112,18 @@ public class CmsPageService
         }
         return new CmsPageResult(CommonCode.SUCCESS,null);
     }
+
+    /**
+     * 根据ID删除页面
+     * @param id
+     * @return
+     */
+	public CmsPageResult delete(String id) {
+        CmsPage cmsPage = this.findById(id);
+        if(cmsPage != null) {
+            cmsPageRepository.deleteById(id);
+            return new CmsPageResult(CommonCode.SUCCESS, null);
+        }
+		return new CmsPageResult(CommonCode.SUCCESS, null);
+	}
 }
