@@ -23,8 +23,11 @@ public class QueryPageRequest extends RequestData
     private String pageName;
     /** 别名 */
     @ApiModelProperty("别名")
-    private String pageAliase;
+    private String pageAlias;
     /** 模板ID */
     @ApiModelProperty("模板ID")
     private String templateId;
+    /** 页面类型 */
+    @ApiModelProperty("页面类型")
+    private String pageType;
 }

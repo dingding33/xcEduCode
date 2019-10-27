@@ -36,4 +36,10 @@ public interface CmsPageControllerApi
     @ApiOperation("删除页面")
     CmsPageResult delete(String id);
 
+    @ApiOperation("静态化")
+    void staticHtml(String id);
+
+    @ApiOperation("页面预览")
+    void preview(String id);
+
 }

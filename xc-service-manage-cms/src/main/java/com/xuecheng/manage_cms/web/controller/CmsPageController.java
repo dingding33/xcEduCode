@@ -95,5 +95,23 @@ public class CmsPageController implements CmsPageControllerApi
         return cmsPageService.delete(id);
     }
 
+    /**
+     * 静态化
+     * @param id
+     * @return
+     */
+    @Override
+    @GetMapping("/html/{id}")
+    public void staticHtml(@PathVariable("id") String id) {
+        cmsPageService.createPageHtml(id);
+    }
 
+    /**
+     * 页面预览
+     * @param id
+     */
+    @Override
+    public void preview(String id) {
+
+    }
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
  * Created by mrt on 2018/5/22.
  */
 public class BaseController {
+
     protected HttpServletRequest request;
 
     protected HttpServletResponse response;
