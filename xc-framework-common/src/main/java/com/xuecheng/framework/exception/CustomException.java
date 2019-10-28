@@ -6,6 +6,9 @@ import com.xuecheng.framework.model.response.ResultCode;
  * 自定义异常
  */
 public class CustomException extends RuntimeException {
+
+    private static final long serialVersionUID = -6317022313171638680L;
+    
     private ResultCode resultCode;
 
     public CustomException(ResultCode resultCode) {
