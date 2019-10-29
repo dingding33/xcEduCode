@@ -5,6 +5,7 @@ import com.xuecheng.framework.domain.cms.CmsPage;
 import com.xuecheng.framework.domain.cms.request.QueryPageRequest;
 import com.xuecheng.framework.domain.cms.response.CmsPageResult;
 import com.xuecheng.framework.model.response.QueryResponseResult;
+import com.xuecheng.framework.model.response.ResponseResult;
 import com.xuecheng.manage_cms.service.CmsPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -113,5 +114,19 @@ public class CmsPageController implements CmsPageControllerApi
     @Override
     public void preview(String id) {
 
+    }
+
+    /**
+     * Description: 发布页面
+     * @author yindb
+     * @date 2019/10/29
+     * @param id :
+     * @return : com.xuecheng.framework.model.response.ResponseResult
+     */
+    @PostMapping("/postPage/{pageId}")
+    @Override
+    public ResponseResult post(@PathVariable("pageId") String id)
+    {
+        return cmsPageService.postPage(id);
     }
 }

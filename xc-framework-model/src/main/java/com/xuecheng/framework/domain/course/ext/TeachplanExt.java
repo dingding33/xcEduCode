@@ -11,9 +11,6 @@ import lombok.ToString;
 @ToString
 public class TeachplanExt extends Teachplan {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
 
     // 媒资文件id
