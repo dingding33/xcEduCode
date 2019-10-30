@@ -8,7 +8,9 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created by admin on 2018/2/7.
+ * Description: 课程分类
+ * @author yindb
+ * @date 2019/10/30
  */
 @Data
 @ToString
@@ -22,11 +24,17 @@ public class Category implements Serializable {
     @GeneratedValue(generator = "jpa-assigned")
     @Column(length = 32)
     private String id;
+    /** 分类名称 */
     private String name;
+    /** 分类标签，默认与名称一样 */
     private String label;
+    /** 父节点ID */
     private String parentid;
+    /** 是否显示 */
     private String isshow;
+    /** 排序字段 */
     private Integer orderby;
+    /** 是否是叶子 */
     private String isleaf;
 
 }

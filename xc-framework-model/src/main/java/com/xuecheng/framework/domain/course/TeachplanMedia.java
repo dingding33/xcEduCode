@@ -17,19 +17,21 @@ import java.io.Serializable;
 @GenericGenerator(name = "jpa-assigned", strategy = "assigned")
 public class TeachplanMedia implements Serializable {
     private static final long serialVersionUID = -916357110051689485L;
+    /** 课程计划ID */
     @Id
     @GeneratedValue(generator = "jpa-assigned")
     @Column(name="teachplan_id")
     private String teachplanId;
-
+    /** 媒体资源文件ID */
     @Column(name="media_id")
     private String mediaId;
-
+    /** 媒资文件原始名称 */
     @Column(name="media_fileoriginalname")
     private String mediaFileOriginalName;
-
+    /** 媒资文件方位地址 */
     @Column(name="media_url")
     private String mediaUrl;
+    /** 课程id */
     private String courseId;
 
 }
