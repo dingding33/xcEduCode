@@ -255,8 +255,7 @@ public class CmsPageService
         }
         String html = this.generateHtml(template, model);
 
-
-        return null;
+        return html;
     }
 
     /**

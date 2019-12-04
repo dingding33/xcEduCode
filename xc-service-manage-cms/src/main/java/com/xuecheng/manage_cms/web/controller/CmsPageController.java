@@ -6,18 +6,23 @@ import com.xuecheng.framework.domain.cms.request.QueryPageRequest;
 import com.xuecheng.framework.domain.cms.response.CmsPageResult;
 import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.ResponseResult;
+import com.xuecheng.framework.web.BaseController;
 import com.xuecheng.manage_cms.service.CmsPageService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletOutputStream;
+import java.io.IOException;
+
 /**
- * Description: 分页查询页面
+ * Description: 课程管理
  * @author yindb
  * @date 2019/10/22
  */
 @RestController
 @RequestMapping("/cms/page")
-public class CmsPageController implements CmsPageControllerApi
+public class CmsPageController extends BaseController implements CmsPageControllerApi
 {
     private CmsPageService cmsPageService;
 
@@ -97,22 +102,22 @@ public class CmsPageController implements CmsPageControllerApi
     }
 
     /**
-     * 静态化
-     * @param id
-     * @return
-     */
-    @Override
-    @GetMapping("/html/{id}")
-    public void staticHtml(@PathVariable("id") String id) {
-        cmsPageService.createPageHtml(id);
-    }
-
-    /**
      * 页面预览
      * @param id
      */
     @Override
-    public void preview(String id) {
+    @GetMapping("/preview/{id}")
+    public void preview(@PathVariable("id") String id) {
+
+        String pageHtml = cmsPageService.createPageHtml(id);
+        if (StringUtils.isNotEmpty(pageHtml)) {
+            try {
+                ServletOutputStream outputStream = response.getOutputStream();
+                outputStream.write(pageHtml.getBytes("utf-8"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 

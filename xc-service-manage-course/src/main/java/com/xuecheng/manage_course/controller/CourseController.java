@@ -43,7 +43,7 @@ public class CourseController implements CourseControllerApi
     @PostMapping("/teachplan/add")
     public ResponseResult addTeachplan(@RequestBody Teachplan teachplan)
     {
-        ResponseResult responseResult = new ResponseResult();
+        ResponseResult responseResult;
         // TODOY :--必填项校验 -- 2019-10-30 15:27
 
         responseResult = courseService.addTeachplan(teachplan);
@@ -61,6 +61,7 @@ public class CourseController implements CourseControllerApi
     @DeleteMapping("/teachplan/del/{courseId}")
     public ResponseResult delTeachplan(@PathVariable("courseId") String courseId)
     {
+
         return null;
     }
 

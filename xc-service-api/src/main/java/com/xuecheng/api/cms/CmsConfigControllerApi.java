@@ -13,7 +13,7 @@ import io.swagger.annotations.ApiOperation;
 public interface CmsConfigControllerApi
 {
 
-    @ApiOperation("通过ID查询页面")
+    @ApiOperation("根据Id查询CMS配置信息")
     CmsConfig getModel(String id);
 
 }

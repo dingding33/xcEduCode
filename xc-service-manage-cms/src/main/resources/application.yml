@@ -7,5 +7,11 @@ spring:
     mongodb:
       uri: mongodb://120.78.200.139:27017
       database: xc_cms
+  rabbitmq:
+    host: 192.168.56.110
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
   jpa:
     show-sql: true
