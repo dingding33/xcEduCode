@@ -4,6 +4,7 @@ import com.xuecheng.api.cms.SysDicthinaryControllerApi;
 import com.xuecheng.framework.domain.system.SysDictionary;
 import com.xuecheng.manage_cms.service.SysDictionaryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,8 @@ public class SysDictionaryController implements SysDicthinaryControllerApi
      * @return : com.xuecheng.framework.domain.system.SysDictionary
      */
     @Override
-    public SysDictionary getByType(String type)
+    @RequestMapping("/get/{type}")
+    public SysDictionary getByType(@PathVariable("type") String type)
     {
         return sysDictionaryService.findDictionaryByType(type);
     }

@@ -1,10 +1,17 @@
 package com.xuecheng.manage_course.service;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.xuecheng.framework.domain.course.CourseBase;
 import com.xuecheng.framework.domain.course.Teachplan;
+import com.xuecheng.framework.domain.course.ext.CourseInfo;
 import com.xuecheng.framework.domain.course.ext.TeachplanNode;
+import com.xuecheng.framework.domain.course.request.CourseListRequest;
+import com.xuecheng.framework.domain.course.response.AddCourseResult;
 import com.xuecheng.framework.exception.ExceptionCast;
 import com.xuecheng.framework.model.response.CommonCode;
+import com.xuecheng.framework.model.response.QueryResponseResult;
+import com.xuecheng.framework.model.response.QueryResult;
 import com.xuecheng.framework.model.response.ResponseResult;
 import com.xuecheng.manage_course.dao.CourseBaseRepository;
 import com.xuecheng.manage_course.dao.CourseMapper;
@@ -13,6 +20,7 @@ import com.xuecheng.manage_course.dao.TeachplanRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +38,8 @@ public class CourseService
 
 
     @Autowired
-    public CourseService(TeachplanRepository teachplanRepository, TeachplanMapper teachplanMapper, CourseBaseRepository courseBaseRepository, CourseMapper
+    public CourseService(TeachplanRepository teachplanRepository, TeachplanMapper teachplanMapper,
+                         CourseBaseRepository courseBaseRepository, CourseMapper
             courseMapper)
     {
         this.teachplanRepository = teachplanRepository;
@@ -42,10 +51,11 @@ public class CourseService
 
     /**
      * Description: 课程计划查询
-     * @author yindb
-     * @date 2019/10/29
+     *
      * @param courseId :
      * @return : com.xuecheng.framework.domain.course.ext.TeachplanNode
+     * @author yindb
+     * @date 2019/10/29
      */
     public TeachplanNode findTeachplanList(String courseId)
     {
@@ -54,15 +64,17 @@ public class CourseService
 
     /**
      * Description: 新增课程计划
-     * @author yindb
-     * @date 2019/10/30
+     *
      * @param teachplan :
      * @return : com.xuecheng.framework.model.response.ResponseResult
+     * @author yindb
+     * @date 2019/10/30
      */
     public ResponseResult addTeachplan(Teachplan teachplan)
     {
         // 校验课程id和课程计划名称是否为空
-        if (teachplan == null || StringUtils.isBlank(teachplan.getCourseid()) || StringUtils.isBlank(teachplan.getPname()))
+        if (teachplan == null || StringUtils.isBlank(teachplan.getCourseid()) || StringUtils.isBlank(teachplan
+                .getPname()))
         {
             ExceptionCast.cast(CommonCode.INVALID_PARAM);
         }
@@ -70,7 +82,11 @@ public class CourseService
         String courseid = teachplan.getCourseid();
         // 父节点ID
         // 如果父节点为空则获取根节点
-        String parentid = !"".equals(teachplan.getParentid()) ? teachplan.getParentid() :getTeachplanRoot(courseid);
+        String parentid = teachplan.getParentid();
+        if (StringUtils.isBlank(parentid))
+        {
+            parentid = getTeachplanRoot(courseid);
+        }
         if (StringUtils.isBlank(parentid))
         {
             ExceptionCast.cast(CommonCode.INVALID_PARAM);
@@ -104,10 +120,11 @@ public class CourseService
 
     /**
      * Description: 获取根节点ID
-     * @author yindb
-     * @date 2019/10/30
+     *
      * @param courseid :
      * @return : java.lang.String
+     * @author yindb
+     * @date 2019/10/30
      */
     private String getTeachplanRoot(String courseid)
     {
@@ -120,9 +137,10 @@ public class CourseService
         }
         CourseBase courseBase = optional.get();
         // 课程计划根节点
-        List<Teachplan> teachplanList =  teachplanRepository.findByCourseidAndParentid(courseid, "0");
+        List<Teachplan> teachplanList = teachplanRepository.findByCourseidAndParentid(courseid, "0");
         // 没有课程计划根节点则新增一个根节点
-        if (teachplanList == null || teachplanList.size() == 0){
+        if (teachplanList == null || teachplanList.size() == 0)
+        {
             Teachplan root = new Teachplan();
             root.setPname(courseBase.getName());
             root.setParentid("0");
@@ -134,5 +152,61 @@ public class CourseService
         }
         // 已有课程计划则取已有根节点
         return teachplanList.get(0).getId();
+    }
+
+    /**
+     * Description: 分页查询课程列表
+     *
+     * @param page              :
+     * @param size              :
+     * @param courseListRequest :
+     * @return : com.xuecheng.framework.model.response.QueryResponseResult
+     * @author yindb
+     * @date 2019/12/31
+     */
+    public QueryResponseResult findCourseList(int page, int size, CourseListRequest courseListRequest)
+    {
+        if (courseListRequest == null)
+        {
+            courseListRequest = new CourseListRequest();
+        }
+        if (page <= 0)
+        {
+            page = 0;
+        }
+        if (size <= 0)
+        {
+            size = 20;
+        }
+
+        // 设置分页参数
+        PageHelper.startPage(page, size);
+        // 分页查询
+        Page<CourseInfo> courseListPage = courseMapper.findCourseListPage(courseListRequest);
+        // 查询列表
+        List<CourseInfo> list = courseListPage.getResult();
+        // 总记录数
+        long total = courseListPage.getTotal();
+        // 查询结果集
+        QueryResult<CourseInfo> courseInfoQueryResult = new QueryResult<>();
+        courseInfoQueryResult.setList(list);
+        courseInfoQueryResult.setTotal(total);
+        return new QueryResponseResult(CommonCode.SUCCESS, courseInfoQueryResult);
+    }
+
+    /**
+     * Description: 添加课程基础信息
+     * @author yindb
+     * @date 2019/12/31
+     * @param courseBase :
+     * @return : com.xuecheng.framework.domain.course.response.AddCourseResult
+     */
+    @Transactional
+    public AddCourseResult addCourseBase(CourseBase courseBase)
+    {
+        // 课程状态默认为未发布
+        courseBase.setStatus("202001");
+        CourseBase save = courseBaseRepository.save(courseBase);
+        return new AddCourseResult(CommonCode.SUCCESS,courseBase.getId());
     }
 }
