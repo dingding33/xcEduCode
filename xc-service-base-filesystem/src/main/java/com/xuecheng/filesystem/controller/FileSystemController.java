@@ -21,7 +21,7 @@ public class FileSystemController implements FileSystemControllerAPi {
     @Override
     @PostMapping("/upload")
     public UploadFileResult upload(@RequestParam("file") MultipartFile multipartFile,
-                                   @RequestParam(value = "filetag",required = true) String filetag,
+                                   @RequestParam(value = "filetag") String filetag,
                                    @RequestParam(value = "businesskey",required = false) String businesskey,
                                    @RequestParam(value = "metedata",required = false) String metadata) {
         return fileSystemService.upload(multipartFile,filetag,businesskey,metadata);

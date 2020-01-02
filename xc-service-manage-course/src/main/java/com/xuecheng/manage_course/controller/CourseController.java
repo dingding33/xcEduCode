@@ -1,20 +1,14 @@
 package com.xuecheng.manage_course.controller;
 
 import com.xuecheng.api.course.CourseControllerApi;
-import com.xuecheng.framework.domain.course.CourseBase;
 import com.xuecheng.framework.domain.course.Teachplan;
 import com.xuecheng.framework.domain.course.ext.TeachplanNode;
-import com.xuecheng.framework.domain.course.request.CourseListRequest;
-import com.xuecheng.framework.domain.course.response.AddCourseResult;
-import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.ResponseResult;
 import com.xuecheng.manage_course.service.CourseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * Description: 课程管理
- *
  * @author yindb
  * @date 2019/10/29
  */
@@ -25,14 +19,12 @@ public class CourseController implements CourseControllerApi
 
     @Autowired
     CourseService courseService;
-
     /**
      * Description: 课程计划查询
-     *
-     * @param courseId : 课程ID
-     * @return : com.xuecheng.framework.domain.course.ext.TeachplanNode
      * @author yindb
      * @date 2019/10/29
+     * @param courseId : 课程ID
+     * @return : com.xuecheng.framework.domain.course.ext.TeachplanNode
      */
     @Override
     @GetMapping("/teachplan/list/{courseId}")
@@ -43,11 +35,10 @@ public class CourseController implements CourseControllerApi
 
     /**
      * Description: 添加课程计划
-     *
-     * @param teachplan :
-     * @return : com.xuecheng.framework.model.response.ResponseResult
      * @author yindb
      * @date 2019/10/30
+     * @param teachplan :
+     * @return : com.xuecheng.framework.model.response.ResponseResult
      */
     @Override
     @PostMapping("/teachplan/add")
@@ -62,26 +53,25 @@ public class CourseController implements CourseControllerApi
 
     /**
      * Description: 删除课程计划
-     *
-     * @param courseId :
-     * @return : com.xuecheng.framework.model.response.ResponseResult
      * @author yindb
      * @date 2019/10/30
+     * @param courseId :
+     * @return : com.xuecheng.framework.model.response.ResponseResult
      */
     @Override
     @DeleteMapping("/teachplan/del/{courseId}")
     public ResponseResult delTeachplan(@PathVariable("courseId") String courseId)
     {
+
         return null;
     }
 
     /**
      * Description: 修改课程计划
-     *
-     * @param teachplan :
-     * @return : com.xuecheng.framework.model.response.ResponseResult
      * @author yindb
      * @date 2019/10/30
+     * @param teachplan :
+     * @return : com.xuecheng.framework.model.response.ResponseResult
      */
     @Override
     @PutMapping("/teachplan/edit")
@@ -120,5 +110,28 @@ public class CourseController implements CourseControllerApi
     public AddCourseResult addCourseBase(@RequestBody CourseBase courseBase)
     {
         return courseService.addCourseBase(courseBase);
+    }
+
+    /**
+     * 添加课程图片
+     * @param courseId
+     * @param pic
+     * @return
+     */
+    @Override
+    @PostMapping("/coursepic/add")
+    public ResponseResult addCoursePic(@RequestParam("courseId") String courseId, @RequestParam("pic") String pic) {
+        return courseService.saveCoursePic(courseId,pic);
+    }
+
+    /**
+     * 查询课程图片
+     * @param courseId
+     * @return
+     */
+    @Override
+    @GetMapping("/coursepic/list/{courseId}")
+    public CoursePic findCoursePic(@PathVariable("courseId") String courseId) {
+        return courseService.findCoursePic(courseId);
     }
 }

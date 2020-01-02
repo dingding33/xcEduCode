@@ -1,11 +1,7 @@
 package com.xuecheng.api.course;
 
-import com.xuecheng.framework.domain.course.CourseBase;
 import com.xuecheng.framework.domain.course.Teachplan;
 import com.xuecheng.framework.domain.course.ext.TeachplanNode;
-import com.xuecheng.framework.domain.course.request.CourseListRequest;
-import com.xuecheng.framework.domain.course.response.AddCourseResult;
-import com.xuecheng.framework.model.response.QueryResponseResult;
 import com.xuecheng.framework.model.response.ResponseResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,6 +27,11 @@ public interface CourseControllerApi
     @ApiOperation("修改课程计划")
     ResponseResult editTeachplan(Teachplan teachplan);
 
+    @ApiOperation("添加课程图片")
+    ResponseResult addCoursePic(String courseId, String pic);
+
+    @ApiOperation("获取课程图片信息")
+    CoursePic findCoursePic(String courseId);
 
 
 }
